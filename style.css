@@ -1,0 +1,109 @@
+body {
+  background: url('love.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-container {
+  background: rgba(255, 255, 255, 0.85);
+  width: 350px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+#chat-box {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-end;
+  max-width: 80%;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.message.sent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message.received {
+  align-self: flex-start;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.bubble {
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: #e5e5ea;
+  color: black;
+  font-size: 14px;
+  line-height: 1.4;
+  max-width: 250px;
+  word-break: break-word;
+}
+
+.sent .bubble {
+  background: #0084ff;
+  color: white;
+}
+
+#message-input {
+  border: none;
+  border-top: 1px solid #ccc;
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
+#typing-status {
+  padding: 5px 15px;
+  font-size: 12px;
+  color: #555;
+  font-style: italic;
+  height: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 600px) {
+  .chat-container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
