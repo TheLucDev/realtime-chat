@@ -10,11 +10,7 @@ loginButton.addEventListener('click', function () {
   if (enteredPIN === correctPIN) {
     loginScreen.style.display = 'none';
     chatContainer.style.display = 'flex';
-    body.style.display = 'flex';
-    body.style.justifyContent = 'center';
-    body.style.alignItems = 'center';
-    body.style.background = `url('love.jpg') no-repeat center center fixed`;
-    body.style.backgroundSize = `cover`;
+    body.classList.add('login-success'); // Thêm class này vào body để căn giữa khung chat
   } else {
     passwordInput.classList.add('shake');
     setTimeout(() => {
@@ -99,5 +95,3 @@ db.ref('typing/' + otherUser).on('value', function (snapshot) {
   const isTyping = snapshot.val();
   typingStatus.textContent = isTyping ? `${otherUser} đang nhập...` : '';
 });
-
-// firebase.database().ref('messages').remove();
