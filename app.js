@@ -1,3 +1,29 @@
+const correctPIN = '230603'; // <== Đây là mã PIN bạn yêu cầu
+const loginScreen = document.getElementById('login-screen');
+const body = document.querySelector('body');
+const chatContainer = document.querySelector('.chat-container');
+const loginButton = document.getElementById('login-button');
+const passwordInput = document.getElementById('password-input');
+
+loginButton.addEventListener('click', function () {
+  const enteredPIN = passwordInput.value;
+  if (enteredPIN === correctPIN) {
+    loginScreen.style.display = 'none';
+    chatContainer.style.display = 'flex';
+    body.style.display = 'flex';
+    body.style.justifyContent = 'center';
+    body.style.alignItems = 'center';
+    body.style.background = `url('love.jpg') no-repeat center center fixed`;
+    body.style.backgroundSize = `cover`;
+  } else {
+    passwordInput.classList.add('shake');
+    setTimeout(() => {
+      passwordInput.classList.remove('shake');
+    }, 500);
+    alert('Sai mã PIN rồi 😢. Thử lại nhé!');
+  }
+});
+
 const firebaseConfig = {
   apiKey: 'AIzaSyBohb0Beq9bZTdULP2SW_L-Q_Xg0K5lPf8',
   authDomain: 'gfchat-76776.firebaseapp.com',

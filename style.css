@@ -1,4 +1,4 @@
-body {
+/* body {
   background: url('love.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Arial', sans-serif;
@@ -8,6 +8,62 @@ body {
   height: 100vh;
   justify-content: center;
   align-items: center;
+} */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #ffd6e7, #ffe9ec);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#login-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+#login-screen h2 {
+  color: #ff6699;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+#login-screen p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+#password-input {
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 20px;
+  width: 200px;
+  border: 2px solid #ff99cc;
+  border-radius: 20px;
+  outline: none;
+  margin-bottom: 20px;
+  background: #fff0f5;
+}
+
+#login-button {
+  font-size: 18px;
+  padding: 10px 30px;
+  background-color: #ff66a3;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#login-button:hover {
+  background-color: #ff3385;
 }
 
 .chat-container {
@@ -96,6 +152,27 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
 }
 
 /* Responsive Mobile */
