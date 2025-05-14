@@ -315,6 +315,8 @@ body.login-success {
 /* Responsive Mobile */
 @media (max-width: 600px) {
   .chat-container {
+    position: fixed;
+    top: 0;
     width: 100vw;
     height: 100dvh; /* Sử dụng 100dvh thay cho 100vh */
     max-height: 100dvh;
