@@ -120,6 +120,41 @@ loginButton.addEventListener('click', function () {
   }
   localStorage.setItem('currentUser', currentUser);
   localStorage.setItem('otherUser', otherUser);
+
+  // Đăng ký nhận push notification
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('firebase-messaging-sw.js')
+      .then(function (registration) {
+        const messaging = firebase.messaging();
+        messaging.useServiceWorker(registration);
+
+        messaging
+          .requestPermission()
+          .then(function () {
+            return messaging.getToken({
+              vapidKey: 'kkdoRwAwNBF8qbGz_9VNINq0VpLg1t2DLyrXccrRbho',
+            });
+          })
+          .then(function (token) {
+            // Lưu token này lên Firebase Database để server có thể gửi push
+            if (currentUser) {
+              db.ref('pushTokens/' + currentUser).set(token);
+            }
+          })
+          .catch(function (err) {
+            console.log('Không thể lấy FCM token:', err);
+          });
+
+        // Nhận thông báo khi app đang mở
+        messaging.onMessage(function (payload) {
+          if (Notification.permission === 'granted') {
+            const { title, body, icon } = payload.notification;
+            new Notification(title, { body, icon });
+          }
+        });
+      });
+  }
 });
 
 // --- Fix chiều cao chat-container trên mobile ---
