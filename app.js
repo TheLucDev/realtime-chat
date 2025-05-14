@@ -27,6 +27,7 @@ const chatBox = document.getElementById('chat-box');
 const messageInput = document.getElementById('message-input');
 const typingStatus = document.getElementById('typing-status');
 let typingStatusTimeout;
+chatContainer.style.display = 'none';
 
 // Đăng nhập
 loginButton.addEventListener('click', function () {
