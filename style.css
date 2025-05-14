@@ -23,6 +23,19 @@ body {
   margin-bottom: 10px;
 }
 
+.body-lock-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100vw !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Safari/iOS hỗ trợ tốt, nhưng nếu muốn chắc chắn: */
+  -webkit-overflow-scrolling: auto !important;
+  touch-action: none !important;
+}
 #login-screen p {
   color: #666;
   margin-bottom: 20px;

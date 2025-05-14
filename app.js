@@ -18,6 +18,7 @@ const body = document.querySelector('body');
 const chatContainer = document.querySelector('.chat-container');
 const loginButton = document.getElementById('login-button');
 const passwordInput = document.getElementById('password-input');
+body.classList.add('body-lock-scroll');
 
 // Người dùng hiện tại
 let currentUser = '';
@@ -38,6 +39,7 @@ loginButton.addEventListener('click', function () {
     loginScreen.style.display = 'none';
     chatContainer.style.display = 'flex';
     body.classList.add('login-success');
+    body.classList.remove('body-lock-scroll'); // Mở scroll khi đã login
     startChatListener();
   } else if (enteredPIN === '171296') {
     currentUser = 'minmin';
