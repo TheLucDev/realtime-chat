@@ -21,9 +21,25 @@
       <button id="login-button">🔓 Mở khoá</button>
     </div>
     <div class="chat-container">
+      <div class="chat-header">
+        <button
+          id="delete-all-btn"
+          title="Xoá tất cả tin nhắn"
+          class="delete-all-btn"
+        >
+          🗑️ Xoá tất cả
+        </button>
+      </div>
       <div id="chat-box"></div>
       <div id="typing-status"></div>
-      <input id="message-input" type="text" placeholder="Nhập tin nhắn..." />
+      <div class="chat-input-row">
+        <input id="message-input" type="text" placeholder="Nhập tin nhắn..." />
+        <button id="send-button" title="Gửi">
+          <svg height="24" width="24" viewBox="0 0 24 24" fill="#fff">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+          </svg>
+        </button>
+      </div>
     </div>
     <script src="app.js"></script>
   </body>

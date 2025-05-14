@@ -56,6 +56,69 @@ body {
   background-color: #ff3385;
 }
 
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #ff69b4;
+  font-size: 16px;
+  margin-left: 6px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: color 0.2s, opacity 0.2s;
+  padding: 2px 6px;
+  border-radius: 50%;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete-btn:hover {
+  color: #e055a1;
+  background: #ffe4ef;
+  opacity: 1;
+}
+/* Chỉ hiện nút xoá khi hover */
+.message .delete-btn {
+  display: none;
+}
+.message.sent:hover .delete-btn,
+.message.received:hover .delete-btn {
+  display: flex;
+}
+
+/* Nút xoá tất cả */
+.delete-all-btn {
+  background: #fff0fa;
+  border: none;
+  color: #ff3385;
+  border-radius: 16px;
+  padding: 6px 16px;
+  font-size: 14px;
+  margin-left: auto;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.delete-all-btn:hover {
+  background: #ffb6d5;
+  color: #fff;
+}
+
+/* Header chat */
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 0 16px;
+  font-weight: bold;
+  font-size: 17px;
+  color: #ff3385;
+  background: transparent;
+}
+
 .chat-container {
   display: none; /* Ẩn khung chat khi chưa login */
   background: rgba(255, 255, 255, 0.85);
@@ -78,7 +141,56 @@ body {
   flex-direction: column;
   gap: 10px;
 }
+.chat-input-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 12px 8px 12px;
+  gap: 10px;
+  background: #fff;
+  border-top: 1px solid #f3e6ef;
+}
 
+#message-input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #ffb6d5;
+  font-size: 16px;
+  outline: none;
+  background: #fff0fa;
+  transition: border 0.2s;
+}
+
+#message-input:focus {
+  border: 1.5px solid #ff69b4;
+  background: #fff;
+}
+
+#send-button {
+  background: linear-gradient(135deg, #ff69b4 60%, #ffb6d5 100%);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 105, 180, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+#send-button svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+#send-button:hover {
+  background: linear-gradient(135deg, #e055a1 60%, #ffb6d5 100%);
+  box-shadow: 0 4px 16px rgba(255, 105, 180, 0.18);
+}
 .message {
   display: flex;
   align-items: flex-end;
