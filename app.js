@@ -1,40 +1,4 @@
-let fcmToken = '';
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('firebase-messaging-sw.js')
-    .then(function (registration) {
-      const messaging = firebase.messaging();
-      messaging.useServiceWorker(registration);
-
-      messaging
-        .requestPermission()
-        .then(function () {
-          return messaging.getToken({
-            vapidKey: 'kkdoRwAwNBF8qbGz_9VNINq0VpLg1t2DLyrXccrRbho',
-          }); // Thay YOUR_PUBLIC_VAPID_KEY bằng VAPID key của bạn
-        })
-        .then(function (token) {
-          fcmToken = token;
-          // Lưu token này lên Firebase Database để server có thể gửi push
-          if (currentUser) {
-            db.ref('pushTokens/' + currentUser).set(token);
-          }
-        })
-        .catch(function (err) {
-          console.log('Không thể lấy FCM token:', err);
-        });
-
-      // Nhận thông báo khi app đang mở
-      messaging.onMessage(function (payload) {
-        if (Notification.permission === 'granted') {
-          const { title, body, icon } = payload.notification;
-          new Notification(title, { body, icon });
-        }
-      });
-    });
-}
-
-// --- Firebase config (bạn cần giữ đúng thông tin này, không cần thêm gì nếu đã đúng) ---
+// --- Khởi tạo Firebase ---
 const firebaseConfig = {
   apiKey: 'AIzaSyBohb0Beq9bZTdULP2SW_L-Q_Xg0K5lPf8',
   authDomain: 'gfchat-76776.firebaseapp.com',
@@ -45,10 +9,53 @@ const firebaseConfig = {
   messagingSenderId: '314071096707',
   appId: '1:314071096707:web:cb849b36ac0572ec106ab6',
 };
-
-// --- Khởi tạo Firebase ---
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+// --- Biến toàn cục ---
+let fcmToken = '';
+let messaging; // chỉ khởi tạo 1 lần
+
+// --- Đăng ký Service Worker và FCM ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('firebase-messaging-sw.js')
+    .then(function (registration) {
+      if (!messaging) {
+        messaging = firebase.messaging();
+        messaging.useServiceWorker(registration);
+      }
+
+      // Đăng ký nhận push notification khi đăng nhập thành công
+      window.registerPush = function (currentUser) {
+        messaging
+          .requestPermission()
+          .then(function () {
+            return messaging.getToken({
+              vapidKey:
+                'BDJeCsLab57OJx3bu6PemS1aKFEmAjLxFua1WK5tYQt7tl-L9hl0bk0ctDkxEmWgrpKtWwXD7Gg7_seEktZE9I4',
+            });
+          })
+          .then(function (token) {
+            fcmToken = token;
+            if (currentUser) {
+              db.ref('pushTokens/' + currentUser).set(token);
+            }
+          })
+          .catch(function (err) {
+            console.log('Không thể lấy FCM token:', err);
+          });
+      };
+
+      // Nhận thông báo khi app đang mở
+      messaging.onMessage(function (payload) {
+        if (Notification.permission === 'granted') {
+          const { title, body, icon } = payload.notification;
+          new Notification(title, { body, icon });
+        }
+      });
+    });
+}
 
 // --- Lưu user để tự động đăng nhập ---
 const savedUser = localStorage.getItem('currentUser');
@@ -80,10 +87,10 @@ if (savedUser && savedOther) {
   body.classList.add('login-success');
   body.classList.remove('body-lock-scroll');
   startChatListener();
-  // Yêu cầu quyền thông báo nếu chưa cấp
   if (window.Notification && Notification.permission !== 'granted') {
     Notification.requestPermission();
   }
+  if (window.registerPush) window.registerPush(currentUser);
 }
 
 // --- Đăng nhập ---
@@ -100,6 +107,7 @@ loginButton.addEventListener('click', function () {
     if (window.Notification && Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
+    if (window.registerPush) window.registerPush(currentUser);
   } else if (enteredPIN === '171296') {
     currentUser = 'minmin';
     otherUser = 'minhuyn';
@@ -111,6 +119,7 @@ loginButton.addEventListener('click', function () {
     if (window.Notification && Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
+    if (window.registerPush) window.registerPush(currentUser);
   } else {
     passwordInput.classList.add('shake');
     setTimeout(() => {
@@ -120,41 +129,6 @@ loginButton.addEventListener('click', function () {
   }
   localStorage.setItem('currentUser', currentUser);
   localStorage.setItem('otherUser', otherUser);
-
-  // Đăng ký nhận push notification
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('firebase-messaging-sw.js')
-      .then(function (registration) {
-        const messaging = firebase.messaging();
-        messaging.useServiceWorker(registration);
-
-        messaging
-          .requestPermission()
-          .then(function () {
-            return messaging.getToken({
-              vapidKey: 'kkdoRwAwNBF8qbGz_9VNINq0VpLg1t2DLyrXccrRbho',
-            });
-          })
-          .then(function (token) {
-            // Lưu token này lên Firebase Database để server có thể gửi push
-            if (currentUser) {
-              db.ref('pushTokens/' + currentUser).set(token);
-            }
-          })
-          .catch(function (err) {
-            console.log('Không thể lấy FCM token:', err);
-          });
-
-        // Nhận thông báo khi app đang mở
-        messaging.onMessage(function (payload) {
-          if (Notification.permission === 'granted') {
-            const { title, body, icon } = payload.notification;
-            new Notification(title, { body, icon });
-          }
-        });
-      });
-  }
 });
 
 // --- Fix chiều cao chat-container trên mobile ---
