@@ -57,6 +57,21 @@ loginButton.addEventListener('click', function () {
   }
 });
 
+function setChatContainerHeight() {
+  const chatContainer = document.querySelector('.chat-container');
+  if (window.innerWidth <= 600 && chatContainer) {
+    chatContainer.style.height = window.innerHeight + 'px';
+  } else if (chatContainer) {
+    chatContainer.style.height = '';
+  }
+}
+
+// Gọi khi load và khi resize
+window.addEventListener('resize', setChatContainerHeight);
+window.addEventListener('orientationchange', setChatContainerHeight);
+window.addEventListener('DOMContentLoaded', setChatContainerHeight);
+setChatContainerHeight();
+
 function startChatListener() {
   chatBox.innerHTML = '';
   db.ref('messages').off();
