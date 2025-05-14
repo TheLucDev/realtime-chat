@@ -316,8 +316,9 @@ body.login-success {
 @media (max-width: 600px) {
   .chat-container {
     width: 100vw;
-    height: 100vh;
-    display: none; /* chỉ để dòng này, KHÔNG để display: flex ở đây */
+    height: 100dvh; /* Sử dụng 100dvh thay cho 100vh */
+    max-height: 100dvh;
+    display: none;
     background: rgba(255, 255, 255, 0.85);
     flex-direction: column;
     border-radius: 20px;
