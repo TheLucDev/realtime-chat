@@ -317,16 +317,19 @@ body.login-success {
   .chat-container {
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100vw;
-    height: 100dvh; /* Sử dụng 100dvh thay cho 100vh */
+    height: 100dvh;
     max-height: 100dvh;
     display: none;
     background: rgba(255, 255, 255, 0.85);
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: 0;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    position: relative;
-    margin: auto;
+    margin: 0 !important;
+    z-index: 10;
   }
 }
