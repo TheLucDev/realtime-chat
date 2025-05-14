@@ -1,0 +1,21 @@
+{
+  "name": "MinMin & MinHuyen Chat",
+  "short_name": "MinChat",
+  "start_url": ".",
+  "display": "fullscreen",
+  "background_color": "#ffd6e7",
+  "theme_color": "#ff6699",
+  "description": "Chat realtime giữa MinMin và MinHuyen",
+  "icons": [
+    {
+      "src": "icon1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon2.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
